@@ -13,6 +13,8 @@ using UnityEditor;
 
 public class HexBoard : Board
 {
+    public bool canInteract = false;
+
     [Header("Grid Size")]
     [SerializeField] Vector2Int gridSize;
 
@@ -370,6 +372,7 @@ public class HexBoard : Board
                 public override void OnStateUpdate()
                 {
                     base.OnStateUpdate();
+                    if (!origin.canInteract) return;
                     if (InputManager.IsTouchDown() && UIScanner.FindWithTag(InputManager.GetTouchPosition(), "Tile", out GameObject tmp))
                     {
                         if (tmp.transform.parent != origin.transform) return;

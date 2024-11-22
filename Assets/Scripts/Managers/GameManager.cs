@@ -14,7 +14,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] int tilePopRequired = 20;
 
     [Header("Board")]
-    [SerializeField] Board board;
+    [SerializeField] HexBoard board;
+
+    [Header("Base")]
+    [SerializeField] PlayerBase m_playerBase;
+    [SerializeField] EnemyBase m_enemyBase;
+
+    [Header("Cutscenes")]
+    [SerializeField] Cutscene startCutscene;
+    [SerializeField] Cutscene victoryCutscene, defeatCutscene;
+    public PlayerBase playerBase => m_playerBase;
+    public EnemyBase enemyBase => m_enemyBase;
     public int maxGems => m_maxGems;
     public float gemGenerationTime => m_gemGenerationTime;
     int m_gems;
@@ -25,9 +35,11 @@ public class GameManager : MonoBehaviour
     }
     public Action onGemCountChange, onGemEarn;
     public float gemGenerationCounter { get; private set; } = 0;
+
+    public bool gameStarted { get; private set; } = false;
+    public Action onGameStart;
     private void Awake()
     {
-        gems = maxGems / 2;
         board.onTilePop += OnTilePop;
     }
     void OnTilePop()
@@ -40,8 +52,14 @@ public class GameManager : MonoBehaviour
             onGemEarn?.Invoke();
         }
     }
+    private void Start()
+    {
+        gems = maxGems / 2;
+        CutsceneManager.Instance.PlayCutscene(startCutscene, StartGame);
+    }
     private void Update()
     {
+        if (!gameStarted) return;
         gemGenerationCounter = Mathf.Min(gemGenerationTime, gemGenerationCounter + Time.deltaTime);
         if(gemGenerationCounter >= gemGenerationTime && gems < maxGems)
         {
@@ -56,4 +74,18 @@ public class GameManager : MonoBehaviour
         onGemEarn?.Invoke();
     }
     public void ConsumeGem(int count) => gems -= count;
+    public void StartGame()
+    {
+        board.canInteract = true;
+        gameStarted = true;
+        onGameStart?.Invoke();
+    }
+    public void Defeat()
+    {
+        CutsceneManager.Instance.PlayCutscene(defeatCutscene);
+    }
+    public void Victory()
+    {
+        CutsceneManager.Instance.PlayCutscene(victoryCutscene);
+    }
 }
