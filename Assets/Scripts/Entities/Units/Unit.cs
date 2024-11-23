@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public abstract class Unit : MonoBehaviour, IDamagable
@@ -20,26 +19,36 @@ public abstract class Unit : MonoBehaviour, IDamagable
 
     Pooler<Unit> pool;
     bool instantiated = false;
-    public Alliance side { get; private set; }
-    protected MoveDirection moveDir { get; private set; }
+    public Alliance side { get; protected set; }
+    MoveDirection m_moveDir;
+    protected MoveDirection moveDir
+    {
+        get { return m_moveDir; }
+        set
+        {
+            m_moveDir = value;
+            if (m_moveDir == MoveDirection.Right) transform.localScale = new Vector2(1.0f, 1.0f);
+            else if(m_moveDir == MoveDirection.Left) transform.localScale = new Vector2(-1.0f, 1.0f);
+        }
+    }
     protected virtual void OnEnable()
     {
         health = maxHealth;
         dead = false;
+        anim.SetTrigger("Spawned");
     }
-    public Unit Instantiate(Vector2 position, Alliance side, MoveDirection direction)
+    public virtual Unit Instantiate(Vector2 position, Alliance side, MoveDirection direction)
     {
         if (instantiated) return null;
         if (pool == null) pool = new Pooler<Unit>(this);
         Unit tmp = pool.GetObject(position, Quaternion.identity);
         tmp.instantiated = true;
-        tmp.transform.localScale = new Vector2(direction == MoveDirection.Right ? 1.0f : -1.0f, 1.0f);
+        tmp.pool = pool;
         tmp.side = side;
         tmp.moveDir = direction;
-        tmp.pool = pool;
         return tmp;
     }
-    public void Release()
+    public virtual void Release()
     {
         if (!instantiated) return;
         pool.ReleaseObject(this);
@@ -63,14 +72,16 @@ public abstract class Unit : MonoBehaviour, IDamagable
         dead = true;
         OnDeath();
     }
+    readonly int deadID = Animator.StringToHash("Dead");
     protected virtual void OnDeath()
     {
-
+        anim.SetBool(deadID, true);
     }
     readonly int movingID = Animator.StringToHash("Moving");
     readonly int attackingID = Animator.StringToHash("Attacking");
     protected virtual void Update()
     {
+        if (dead || !GameManager.Instance.gameInProgress) return;
         ScanEnemy();
         anim.SetBool(attackingID, scanned != null);
         if (anim.GetBool(movingID))

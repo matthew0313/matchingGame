@@ -249,16 +249,16 @@ public struct CutsceneTalk
 [System.Serializable]
 public struct CutsceneTalkElement
 {
-    [SerializeField] string m_talker;
+    [SerializeField] LanguageString m_talker;
     [SerializeField] Sprite m_leftTalkerImage, m_rightTalkerImage;
     [SerializeField] CutsceneTalkerLocation m_talkerLocation;
-    [SerializeField][TextArea] string m_dialogue;
+    [SerializeField] LanguageString m_dialogue;
     [SerializeField][Tooltip("Use [0]. [1] to play events during the talk.")] CutsceneTalkEvent[] m_events;
-    public string talker => m_talker;
+    public string talker => m_talker.content;
     public Sprite leftTalkerImage => m_leftTalkerImage;
     public Sprite rightTalkerImage => m_rightTalkerImage;
     public CutsceneTalkerLocation talkerLocation => m_talkerLocation;
-    public string dialogue => m_dialogue;
+    public string dialogue => m_dialogue.content;
     public string filteredDialogue
     {
         get
