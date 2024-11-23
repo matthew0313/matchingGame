@@ -18,13 +18,13 @@ public class GameManager : MonoBehaviour
 
     [Header("Base")]
     [SerializeField] PlayerBase m_playerBase;
-    [SerializeField] EnemyBase m_enemyBase;
+    [SerializeField] Transform m_rightMapEdge;
 
     [Header("Cutscenes")]
     [SerializeField] Cutscene startCutscene;
     [SerializeField] Cutscene victoryCutscene, defeatCutscene;
     public PlayerBase playerBase => m_playerBase;
-    public EnemyBase enemyBase => m_enemyBase;
+    public Transform rightMapEdge => m_rightMapEdge;
     public int maxGems => m_maxGems;
     public float gemGenerationTime => m_gemGenerationTime;
     int m_gems;
@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
     public Action onGemCountChange, onGemEarn;
     public float gemGenerationCounter { get; private set; } = 0;
 
-    public bool gameStarted { get; private set; } = false;
-    public Action onGameStart;
+    public bool gameInProgress { get; private set; } = false;
+    public Action onGameStart, onGameEnd;
     private void Awake()
     {
         board.onTilePop += OnTilePop;
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!gameStarted) return;
+        if (!gameInProgress) return;
         gemGenerationCounter = Mathf.Min(gemGenerationTime, gemGenerationCounter + Time.deltaTime);
         if(gemGenerationCounter >= gemGenerationTime && gems < maxGems)
         {
@@ -77,15 +77,23 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         board.canInteract = true;
-        gameStarted = true;
+        gameInProgress = true;
         onGameStart?.Invoke();
     }
-    public void Defeat()
+    void EndGame()
     {
+        board.canInteract = false;
+        gameInProgress = false;
+        onGameEnd?.Invoke();
+    }
+    public void Defeat()
+    {;
+        EndGame();
         CutsceneManager.Instance.PlayCutscene(defeatCutscene);
     }
     public void Victory()
     {
+        EndGame();
         CutsceneManager.Instance.PlayCutscene(victoryCutscene);
     }
 }

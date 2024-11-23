@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using UnityEngine;
 using UnityEngine.UI;
@@ -123,16 +124,17 @@ public class CutsceneManager : MonoBehaviour
             {
                 rightTalkerImage.color = notTalkingColor;
             }
-            talkerText.text = element.talker;
+            Language lang = GlobalManager.Instance.save.settings.language;
+            talkerText.text = element.talker.Content(lang);
             dialogueText.text = "";
-            IEnumerator talkProgress = TalkProgress(element, () => talkProgress = null);
+            IEnumerator talkProgress = TalkProgress(element, () => talkProgress = null, lang);
             StartCoroutine(talkProgress);
             while(talkProgress != null)
             {
                 if (InputManager.IsTouchDown())
                 {
                     StopCoroutine(talkProgress);
-                    dialogueText.text = element.filteredDialogue;
+                    dialogueText.text = element.FilteredDialogue(lang);
                     break;
                 }
                 yield return null;
@@ -145,23 +147,24 @@ public class CutsceneManager : MonoBehaviour
         while (anim.GetBool(talkingID) == true) yield return null;
         onTalkFinish?.Invoke();
     }
-    IEnumerator TalkProgress(CutsceneTalkElement content, Action onTalkProgressFinish)
+    IEnumerator TalkProgress(CutsceneTalkElement content, Action onTalkProgressFinish, Language language)
     {
-        for(int i = 0; i < content.dialogue.Length; i++)
+        string dialogue = content.dialogue.Content(language);
+        for(int i = 0; i < dialogue.Length; i++)
         {
-            if (content.dialogue[i] == '[')
+            if (dialogue[i] == '[')
             {
                 int number = 0;
-                while (content.dialogue[++i] != ']')
+                while (dialogue[++i] != ']')
                 {
                     number *= 10;
-                    number += (content.dialogue[i] - '0');
+                    number += (dialogue[i] - '0');
                 }
                 TalkEvent(content.events[number]);
                 continue;
             }
-            dialogueText.text += content.dialogue[i];
-            if (content.dialogue[i] == '.' || content.dialogue[i] == ',' || content.dialogue[i] == '?' || content.dialogue[i] == '!')
+            dialogueText.text += dialogue[i];
+            if (dialogue[i] == '.' || dialogue[i] == ',' || dialogue[i] == '?' || dialogue[i] == '!')
             {
                 yield return new WaitForSeconds(talkPauseDuration);
             }
@@ -249,32 +252,30 @@ public struct CutsceneTalk
 [System.Serializable]
 public struct CutsceneTalkElement
 {
-    [SerializeField] string m_talker;
+    [SerializeField] LanguageString m_talker;
     [SerializeField] Sprite m_leftTalkerImage, m_rightTalkerImage;
     [SerializeField] CutsceneTalkerLocation m_talkerLocation;
-    [SerializeField][TextArea] string m_dialogue;
+    [SerializeField] LanguageString m_dialogue;
     [SerializeField][Tooltip("Use [0]. [1] to play events during the talk.")] CutsceneTalkEvent[] m_events;
-    public string talker => m_talker;
+    public LanguageString talker => m_talker;
     public Sprite leftTalkerImage => m_leftTalkerImage;
     public Sprite rightTalkerImage => m_rightTalkerImage;
     public CutsceneTalkerLocation talkerLocation => m_talkerLocation;
-    public string dialogue => m_dialogue;
-    public string filteredDialogue
+    public LanguageString dialogue => m_dialogue;
+    public string FilteredDialogue(Language language)
     {
-        get
+        string result = "";
+        string dialogue = this.dialogue.Content(language);
+        for(int i = 0; i < dialogue.Length; i++)
         {
-            string tmp = "";
-            for(int i = 0; i < dialogue.Length; i++)
+            if (dialogue[i] == '[')
             {
-                if (dialogue[i] == '[')
-                {
-                    while (dialogue[++i] != ']') { }
-                    continue;
-                }
-                tmp += dialogue[i];
+                while (dialogue[++i] != ']') { }
+                continue;
             }
-            return tmp;
+            result += dialogue[i];
         }
+        return result;
     }
     public CutsceneTalkEvent[] events => m_events;
 }

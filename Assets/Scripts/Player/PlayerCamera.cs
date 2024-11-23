@@ -8,6 +8,6 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
     {
         transform.Translate(new Vector2(-InputManager.GetDrag().x * moveSpeed * Time.deltaTime, 0.0f));
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, GameManager.Instance.playerBase.transform.position.x, GameManager.Instance.enemyBase.transform.position.x), transform.position.y, -10.0f);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, GameManager.Instance.playerBase.transform.position.x, GameManager.Instance.rightMapEdge.position.x), transform.position.y, -10.0f);
     }
 }
