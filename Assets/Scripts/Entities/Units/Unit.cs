@@ -13,6 +13,8 @@ public abstract class Unit : MonoBehaviour, IDamagable
     [SerializeField] protected float damage;
     [SerializeField] protected int hitPriority;
     [SerializeField] protected Animator anim;
+
+    
     public float maxHealth => m_maxHealth;
     public float health { get; protected set; }
     public float moveSpeed => m_moveSpeed;
@@ -21,6 +23,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
 
     Pooler<Unit> pool;
     bool instantiated = false;
+
     public Alliance side { get; protected set; }
     MoveDirection m_moveDir;
     protected MoveDirection moveDir
@@ -33,6 +36,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
             else if(m_moveDir == MoveDirection.Left) transform.localScale = new Vector2(-1.0f, 1.0f);
         }
     }
+
     protected virtual void OnEnable()
     {
         health = maxHealth;
@@ -47,6 +51,9 @@ public abstract class Unit : MonoBehaviour, IDamagable
         tmp.pool = pool;
         tmp.side = side;
         tmp.moveDir = direction;
+
+        tmp.pool = pool;
+
         return tmp;
     }
     public virtual void Release()
