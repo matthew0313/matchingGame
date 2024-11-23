@@ -146,14 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80871d25753fd3479e8f284b8dae4fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 100
+  m_maxHealth: 150
   m_moveSpeed: 1
   m_scanRange: 2
   damage: 0
   knockbackResistance: 2
   hitPriority: 1
   anim: {fileID: 6643244164274734227}
-  guardReduction: 0.5
+  guardReduction: 0.7
 --- !u!1 &2737040128961912436
 GameObject:
   m_ObjectHideFlags: 0

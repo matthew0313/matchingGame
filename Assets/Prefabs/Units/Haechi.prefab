@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e584f2dbe71c5449e184e2cc285536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 30
+  m_maxHealth: 150
   m_moveSpeed: 1
   m_scanRange: 8
   damage: 5

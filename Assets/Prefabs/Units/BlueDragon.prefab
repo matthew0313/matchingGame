@@ -146,14 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de3624ff1d99b7408ea603f15a90745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 100
+  m_maxHealth: 125
   m_moveSpeed: 2
   m_scanRange: 2
-  damage: 10
+  damage: 8
   knockbackResistance: 1
   hitPriority: 0
   anim: {fileID: 6643244164274734227}
-  knockback: 3
+  knockback: 5
 --- !u!1 &4929505257372032226
 GameObject:
   m_ObjectHideFlags: 0
