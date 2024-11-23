@@ -16,9 +16,4 @@ public class RangedUnit : Unit
             obj.direction = moveDir == MoveDirection.Right ? 1 : -1;
         }
     }
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        Release();
-    }
 }

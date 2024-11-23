@@ -14,9 +14,4 @@ public class BlueDragon : Unit
             if (scanned is IKnockable) (scanned as IKnockable).OnKnockback(knockback);
         }
     }
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        Release();
-    }
 }

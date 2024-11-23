@@ -35,6 +35,6 @@ public abstract class Base : MonoBehaviour, IDamagable
     public void SpawnUnit(Unit prefab)
     {
         if (dead) return;
-        prefab.Instantiate(spawnPoint.position, side, direction);
+        Instantiate(prefab, spawnPoint.position, Quaternion.identity).Set(side, direction);
     }
 }

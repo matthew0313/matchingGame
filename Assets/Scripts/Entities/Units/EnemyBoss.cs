@@ -10,8 +10,9 @@ public class EnemyBoss : Unit
     [SerializeField] List<SpawnSchedule> spawns;
     [SerializeField] Transform spawnPosition;
     protected override bool knockbackImmune => true;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         GameManager.Instance.onGameStart += OnGameStart;
         Set(Alliance.Enemy, m_moveDir);
     }
@@ -20,17 +21,12 @@ public class EnemyBoss : Unit
         anim.SetBool("Started", true);
         foreach (var i in spawns) StartCoroutine(SpawnUnits(i));
     }
-    public override Unit Instantiate(Vector2 position, Alliance side, MoveDirection direction)
-    {
-        return null;
-    }
-    public override void Release() { }
     IEnumerator SpawnUnits(SpawnSchedule schedule)
     {
         yield return new WaitForSeconds(schedule.startTime);
         for (int i = 0; i < schedule.count; i++)
         {
-            schedule.unit.Instantiate(spawnPosition.position, Alliance.Enemy, moveDir);
+            Instantiate(schedule.unit, spawnPosition.position, Quaternion.identity).Set(Alliance.Enemy, moveDir);
             yield return new WaitForSeconds(schedule.interval);
         }
     }
