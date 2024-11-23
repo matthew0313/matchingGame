@@ -25,11 +25,6 @@ public class EnemyBoss : Unit
         return null;
     }
     public override void Release() { }
-    protected override void Update()
-    {
-        if (GameManager.Instance.gameInProgress == false) return;
-        base.Update();
-    }
     IEnumerator SpawnUnits(SpawnSchedule schedule)
     {
         yield return new WaitForSeconds(schedule.startTime);

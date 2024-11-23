@@ -35,7 +35,6 @@ public abstract class Unit : MonoBehaviour, IDamagable
     {
         health = maxHealth;
         dead = false;
-        anim.SetTrigger("Spawned");
     }
     public virtual Unit Instantiate(Vector2 position, Alliance side, MoveDirection direction)
     {
@@ -81,7 +80,11 @@ public abstract class Unit : MonoBehaviour, IDamagable
     readonly int attackingID = Animator.StringToHash("Attacking");
     protected virtual void Update()
     {
-        if (dead || !GameManager.Instance.gameInProgress) return;
+        if (dead || !GameManager.Instance.gameInProgress)
+        {
+            Debug.Log("returned");
+            return;
+        }
         ScanEnemy();
         anim.SetBool(attackingID, scanned != null);
         if (anim.GetBool(movingID))

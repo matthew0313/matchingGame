@@ -6,15 +6,12 @@ using UnityEngine;
 public struct LanguageString
 {
     [SerializeField][TextArea(1, 2)] string korean, english;
-    public string content
+    public string Content(Language language)
     {
-        get
+        switch (language)
         {
-            switch (GlobalManager.Instance.settings.language)
-            {
-                case Language.English: return english;
-                default: return korean;
-            }
+            case Language.English: return english;
+            default: return korean;
         }
     }
 }
