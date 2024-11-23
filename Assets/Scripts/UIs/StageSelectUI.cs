@@ -11,14 +11,15 @@ public class StageSelectUI : MonoBehaviour
     [SerializeField] Color completedColor, availableColor, notAvailableColor;
     int selectedStage = 1;
 
+    Vector3 offSet = new Vector3(0, 0, -10.0f);
     private void Awake()
     {
         selectedStage = Mathf.Min(GlobalManager.Instance.save.lastCompleted + 1, stageAnchors.Length - 1);
-        Camera.main.transform.position = stageAnchors[selectedStage].transform.position;
+        Camera.main.transform.position = stageAnchors[selectedStage].transform.position + offSet;
         for(int i = 0; i < stageAnchors.Length; i++)
         {
             if (GlobalManager.Instance.save.stageSaves[i].completed) stageAnchors[i].color = completedColor;
-            else if (GlobalManager.Instance.save.stageSaves[i - 1].completed) stageAnchors[i].color = availableColor;
+            else if (i == 0 || GlobalManager.Instance.save.stageSaves[i - 1].completed) stageAnchors[i].color = availableColor;
             else stageAnchors[i].color = notAvailableColor;
         }
         UpdateButtons();
@@ -40,7 +41,7 @@ public class StageSelectUI : MonoBehaviour
         if (moving || selectedStage >= stageAnchors.Length - 1) return;
         selectedStage++;
         UpdateButtons();
-        Camera.main.transform.DOMove(stageAnchors[selectedStage].transform.position, 0.5f).SetEase(Ease.InCirc).OnComplete(() =>
+        Camera.main.transform.DOMove(stageAnchors[selectedStage].transform.position + offSet, 0.5f).SetEase(Ease.OutCirc).OnComplete(() =>
         {
 
         });
@@ -50,16 +51,7 @@ public class StageSelectUI : MonoBehaviour
         if (moving || selectedStage <= 0) return;
         selectedStage--;
         UpdateButtons();
-        Camera.main.transform.DOMove(stageAnchors[selectedStage].transform.position, 0.5f).SetEase(Ease.InCirc).OnComplete(() =>
-        {
-
-        });
-    }
-    public void SelectIndex(int index)
-    {
-        selectedStage = index;
-        UpdateButtons();
-        Camera.main.transform.DOMove(stageAnchors[selectedStage].transform.position, 0.5f).SetEase(Ease.InCirc).OnComplete(() =>
+        Camera.main.transform.DOMove(stageAnchors[selectedStage].transform.position + offSet, 0.5f).SetEase(Ease.OutCirc).OnComplete(() =>
         {
 
         });

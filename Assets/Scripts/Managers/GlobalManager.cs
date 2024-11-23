@@ -9,12 +9,7 @@ public class GlobalManager : MonoBehaviour
     public static GlobalManager Instance { get; private set; }
     public GlobalManager()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        if (Instance == null) Instance = this;
     }
     public SaveData save { get; private set; }
     public Settings settings => save.settings;
@@ -29,6 +24,11 @@ public class GlobalManager : MonoBehaviour
     [SerializeField] Language debugLanguage = Language.Korean;
     private void Awake()
     {
+        if (Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
         DontDestroyOnLoad(this);
         saveHandler = new LocalSaveFileHandler(Application.persistentDataPath, fileExtension);
         save = saveHandler.Load("Data");

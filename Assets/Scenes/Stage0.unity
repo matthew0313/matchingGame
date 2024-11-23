@@ -1364,7 +1364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileExtension: .json
-  debug: 1
+  debug: 0
   debugLanguage: 0
 --- !u!1 &332055233
 GameObject:
@@ -1704,6 +1704,7 @@ GameObject:
   - component: {fileID: 364942108}
   - component: {fileID: 364942110}
   - component: {fileID: 364942109}
+  - component: {fileID: 364942111}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -1743,7 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1772,6 +1773,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364942107}
   m_CullTransparentMesh: 1
+--- !u!114 &364942111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364942107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcd4b0121d3b654d9eee84d44726aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    korean: "\uD0C0\uC774\uD2C0\uB85C \uB3CC\uC544\uAC00\uAE30"
+    english: Return to Menu
 --- !u!1 &368223278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,6 +1997,7 @@ GameObject:
   - component: {fileID: 399168155}
   - component: {fileID: 399168157}
   - component: {fileID: 399168156}
+  - component: {fileID: 399168158}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -2020,7 +2037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2049,6 +2066,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399168154}
   m_CullTransparentMesh: 1
+--- !u!114 &399168158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399168154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcd4b0121d3b654d9eee84d44726aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    korean: "\uC7AC\uC2DC\uC791"
+    english: Restart
 --- !u!1 &399413224
 GameObject:
   m_ObjectHideFlags: 0
@@ -23428,7 +23460,7 @@ Animator:
   m_GameObject: {fileID: 5135134923136653279}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1dadddbeff37591429448443d25ccb31, type: 2}
+  m_Controller: {fileID: 9100000, guid: 063c43e4fa26e5e4ea2235916b602d13, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileExtension: .json
-  debug: 1
+  debug: 0
   debugLanguage: 0
 --- !u!4 &435405814
 Transform:

@@ -110,7 +110,11 @@ public class GameManager : MonoBehaviour
                 GlobalManager.Instance.save.stageSaves[stageIndex].record = timePast;
             }
         }
-        else GlobalManager.Instance.save.stageSaves[stageIndex].record = timePast;
+        else
+        {
+            GlobalManager.Instance.save.stageSaves[stageIndex].record = timePast;
+            GlobalManager.Instance.save.stageSaves[stageIndex].completed = true;
+        }
         if (GlobalManager.Instance.save.lastCompleted < stageIndex) GlobalManager.Instance.save.lastCompleted = stageIndex;
         CutsceneManager.Instance.PlayCutscene(victoryCutscene, onGameWin);
     }
@@ -120,6 +124,6 @@ public class GameManager : MonoBehaviour
     }
     public void ReturnToMenu()
     {
-        SceneSwitcher.SwitchScene("Menu");
+        SceneSwitcher.SwitchScene("Stage");
     }
 }

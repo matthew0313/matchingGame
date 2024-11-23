@@ -32,8 +32,9 @@ public class TitleUI : MonoBehaviour
     {
         if (canStart && InputManager.IsTouchDown())
         {
-            if (GlobalManager.Instance.save.introWatched) SceneSwitcher.SwitchScene("Menu");
-            else SceneSwitcher.SwitchScene("Intro");
+            /*if (GlobalManager.Instance.save.introWatched) SceneSwitcher.SwitchScene("Menu");
+            else SceneSwitcher.SwitchScene("Intro");*/
+            SceneSwitcher.SwitchScene("Stage");
         }
     }
 }
