@@ -102,15 +102,16 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         EndGame();
-        if (GlobalManager.Instance.save.stageRecords.TryGetValue(stageIndex, out float tmp))
+        if (GlobalManager.Instance.save.stageSaves[stageIndex].completed)
         {
-            if (tmp > timePast)
+            if (GlobalManager.Instance.save.stageSaves[stageIndex].record > timePast)
             {
                 newRecord = true;
-                GlobalManager.Instance.save.stageRecords[stageIndex] = timePast;
+                GlobalManager.Instance.save.stageSaves[stageIndex].record = timePast;
             }
         }
-        else GlobalManager.Instance.save.stageRecords.Add(stageIndex, timePast);
+        else GlobalManager.Instance.save.stageSaves[stageIndex].record = timePast;
+        if (GlobalManager.Instance.save.lastCompleted < stageIndex) GlobalManager.Instance.save.lastCompleted = stageIndex;
         CutsceneManager.Instance.PlayCutscene(victoryCutscene, onGameWin);
     }
     public void Restart()

@@ -35,7 +35,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 87ed86ff158603846aa811e90d4f5019, type: 2}
+  m_Motion: {fileID: 7400000, guid: f969b3b18c2bba74cba4cdadd8303b4e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -81,7 +81,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1495439441875515197}
-    m_Position: {x: 421.7509, y: -62.83568, z: 0}
+    m_Position: {x: 420, y: -60, z: 0}
   m_AnyStateTransitions:
   - {fileID: -5386139632218736638}
   m_EntryTransitions: []
@@ -113,7 +113,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 38e2a10d3c9eb504bb0d21c54141ca67, type: 2}
+  m_Motion: {fileID: 7400000, guid: 528a7fcb1b1d7004b919177429c2b558, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -150,7 +150,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TestUnit
+  m_Name: BlueDragon
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Moving
@@ -235,7 +235,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 19fa114ac3495d94b8718f1ff93d7b22, type: 2}
+  m_Motion: {fileID: 7400000, guid: bba70f9b6c9dad0498a86b3ba32b1116, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
