@@ -4,5 +4,12 @@ using UnityEngine;
 
 public interface IKnockable : IDamagable
 {
-    public void ApplyKnockback(float knockback) { }
+    public void OnKnockback(float knockback);
+}
+[System.Serializable]
+public enum Alliance
+{
+    Player,
+    Enemy,
+    None
 }

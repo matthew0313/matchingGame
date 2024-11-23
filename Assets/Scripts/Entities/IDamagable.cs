@@ -8,10 +8,3 @@ public interface IDamagable
     public virtual int priority => 0;
     public void OnDamage(float damage);
 }
-[System.Serializable]
-public enum Alliance
-{
-    Player,
-    Enemy,
-    None
-}

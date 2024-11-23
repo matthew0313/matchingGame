@@ -6,7 +6,7 @@ public class TestUnit : Unit
 {
     public void Attack()
     {
-        if (scanned != null) scanned.GetDamage(damage);
+        if (scanned != null) scanned.OnDamage(damage);
     }
     protected override void OnDeath()
     {

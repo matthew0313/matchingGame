@@ -8,8 +8,9 @@ public class EnemyBase : Base
 {
     [SerializeField] List<SpawnSchedule> spawns;
     public override Alliance side => Alliance.Enemy;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         GameManager.Instance.onGameStart += OnGameStart;
     }
     protected override void OnDeath()

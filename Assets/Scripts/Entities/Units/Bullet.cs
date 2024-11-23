@@ -15,9 +15,9 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform.TryGetComponent<HpComp>(out HpComp tmp))
+        if(collision.transform.TryGetComponent(out IDamagable tmp))
         {
-            if (tmp.side != side) tmp.GetDamage(damage);
+            if (tmp.side != side) tmp.OnDamage(damage);
             Destroy(gameObject);
         }
     }

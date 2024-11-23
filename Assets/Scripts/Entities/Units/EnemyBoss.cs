@@ -9,11 +9,11 @@ public class EnemyBoss : Unit
     [SerializeField] MoveDirection m_moveDir;
     [SerializeField] List<SpawnSchedule> spawns;
     [SerializeField] Transform spawnPosition;
+    protected override bool knockbackImmune => true;
     private void Awake()
     {
         GameManager.Instance.onGameStart += OnGameStart;
-        moveDir = m_moveDir;
-        side = Alliance.Enemy;
+        Set(Alliance.Enemy, m_moveDir);
     }
     void OnGameStart()
     {
