@@ -16,7 +16,12 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         Unit tmp = collision.transform.GetComponent<Unit>();
+        if (tmp == null)
+        {
+            return;
+        }
         if (tmp.side == Alliance.Enemy)
         {
             tmp.OnDamage(damage);

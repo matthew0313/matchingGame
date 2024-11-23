@@ -1632,7 +1632,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3
+  m_Text: 2
 --- !u!222 &431119131
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10210,7 +10210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnedUnit: {fileID: 3265393638650003726, guid: 7ad379b27f7571441aa774b000b6e7aa, type: 3}
-  spawnCost: 3
+  spawnCost: 2
   spawnCooldown: 2
   cooldownText: {fileID: 763117107}
   cooldownImage: {fileID: 1287015571}
