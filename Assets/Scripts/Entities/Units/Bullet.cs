@@ -17,8 +17,11 @@ public class Bullet : MonoBehaviour
     {
         if(collision.transform.TryGetComponent(out IDamagable tmp))
         {
-            if (tmp.side != side) tmp.OnDamage(damage);
-            Destroy(gameObject);
+            if (tmp.side != side)
+            {
+                tmp.OnDamage(damage);
+                Destroy(gameObject);
+            }
         }
     }
 }
