@@ -208,12 +208,12 @@ public class CutsceneManager : MonoBehaviour
     {
         float counter = 0.0f;
         float moveTime = content.moveCurve.keys[content.moveCurve.length - 1].time;
+        Debug.Log(moveTime);
         while(counter < moveTime)
         {
             Vector2 origin = Camera.main.transform.position;
-            Vector2 target = Vector2.Lerp(startPos, content.destination == null ? content.destination.position : content.destinationAlt, content.moveCurve.Evaluate(counter));
+            Vector2 target = Vector2.Lerp(startPos, content.destination == null ? content.destinationAlt : content.destination.position, content.moveCurve.Evaluate(counter));
             Camera.main.transform.position = new Vector3(content.controlX ? target.x : origin.x, content.controlY ? target.y : origin.y, -10.0f);
-            Camera.main.transform.position += new Vector3(0, 0, -10.0f);
             counter += Time.deltaTime;
             yield return null;
         }
