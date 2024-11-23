@@ -61,4 +61,12 @@ public class StageSelectUI : MonoBehaviour
         if (selectedStage > 0 && GlobalManager.Instance.save.stageSaves[selectedStage - 1].completed == false) return;
         SceneSwitcher.SwitchScene("Stage" + selectedStage);
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (int i = 0; i < stageAnchors.Length; i++) GlobalManager.Instance.save.stageSaves[i].completed = true;
+            SceneSwitcher.SwitchScene("Stage");
+        }
+    }
 }

@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6bed5613c4064c8180f4e21e387ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageIndex: 0
+  stageIndex: 1
   timePast: 0
   m_maxGems: 10
   m_gemGenerationTime: 10
@@ -878,14 +878,17 @@ MonoBehaviour:
       m_talk:
         m_elements:
         - m_talker:
-            korean: "\uBC31\uD638\uC758 \uD2B9\uC9D5"
-            english: About Backho
+            korean: "\uC8FC\uC791\uC758 \uD2B9\uC9D5"
+            english: About Suzaku
           m_leftTalkerImage: {fileID: 0}
           m_rightTalkerImage: {fileID: 0}
           m_talkerLocation: 0
           m_dialogue:
-            korean: "\uBC31\uD638\uB294 \uBE60\uB978 \uADFC\uC811 \uD0C0\uC6CC\uC785\uB2C8\uB2E4."
-            english: Backho is a fast melee-ranged tower.
+            korean: "\uC8FC\uC791\uC740 \uC6D0\uAC70\uB9AC \uD0C0\uC6CC\uC785\uB2C8\uB2E4.
+              \uBC31\uD638 \uB4A4\uC5D0\uC11C \uC9C0\uC6D0\uC0AC\uACA9\uC744 \uD560
+              \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+            english: Suzaku is a ranged tower, fit best for providing assist fire
+              behind backhos.
           m_events: []
         m_defaultLeftTalker: {fileID: 0}
         m_defaultRightTalker: {fileID: 0}
@@ -15750,7 +15753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1848072321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15769,9 +15772,9 @@ RectTransform:
   - {fileID: 763117106}
   m_Father: {fileID: 751968684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -90}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848072322
@@ -23922,7 +23925,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: c3618c4c4e6a3ff449fdc8ac1415624b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c892929031de7a43aebce9b8aaa2fe1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -23943,7 +23946,7 @@ Animator:
   m_GameObject: {fileID: 5135134923136653279}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 063c43e4fa26e5e4ea2235916b602d13, type: 2}
+  m_Controller: {fileID: 9100000, guid: bf566cbb4b945f142be0517672af8776, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -23980,7 +23983,7 @@ Transform:
   m_GameObject: {fileID: 2791776624748476580}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23999,7 +24002,7 @@ GameObject:
   - component: {fileID: 5239208305365003510}
   - component: {fileID: 5840506312368190885}
   m_Layer: 6
-  m_Name: PhoenixBoss
+  m_Name: HyunMuBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24048,7 +24051,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 7, y: 3}
   m_EdgeRadius: 0
 --- !u!4 &5702031579586098150
 Transform:
@@ -24059,7 +24062,7 @@ Transform:
   m_GameObject: {fileID: 6855610287667267995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24194,18 +24197,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8315ffe00a85b1045a4d02e88982e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 200
-  m_moveSpeed: 0.5
-  m_scanRange: 2.5
-  damage: 15
+  m_maxHealth: 600
+  m_moveSpeed: 0.25
+  m_scanRange: 8
+  damage: 10
   knockbackResistance: 1
   hitPriority: 0
   anim: {fileID: 758627282931650474}
   m_moveDir: 1
   spawns:
-  - m_startTime: 5
+  - m_startTime: 0
     m_unit: {fileID: 7159500641123464391, guid: bb0fa2a6b6681024693c020fbcdd1e47, type: 3}
     m_count: 3
+    m_interval: 5
+  - m_startTime: 5
+    m_unit: {fileID: 3265393638650003726, guid: 7ad379b27f7571441aa774b000b6e7aa, type: 3}
+    m_count: 2
     m_interval: 5
   spawnPosition: {fileID: 5840506312368190884}
 --- !u!1 &6855610287667267995
