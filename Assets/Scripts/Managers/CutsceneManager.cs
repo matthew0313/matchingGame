@@ -210,7 +210,9 @@ public class CutsceneManager : MonoBehaviour
         float moveTime = content.moveCurve.keys[content.moveCurve.length - 1].time;
         while(counter < moveTime)
         {
-            Camera.main.transform.position = Vector2.Lerp(startPos, content.destination, content.moveCurve.Evaluate(counter));
+            Vector2 origin = Camera.main.transform.position;
+            Vector2 target = Vector2.Lerp(startPos, content.destination == null ? content.destination.position : content.destinationAlt, content.moveCurve.Evaluate(counter));
+            Camera.main.transform.position = new Vector3(content.controlX ? target.x : origin.x, content.controlY ? target.y : origin.y, -10.0f);
             Camera.main.transform.position += new Vector3(0, 0, -10.0f);
             counter += Time.deltaTime;
             yield return null;
@@ -312,8 +314,13 @@ public struct CutsceneTalkEvent_ShowImage
 [System.Serializable]
 public struct CutsceneMoveCamera
 {
-    [SerializeField] Vector2 m_destination;
+    [SerializeField] Transform m_destination;
+    [SerializeField] Vector2 m_destinationAlt;
+    [SerializeField] bool m_controlX, m_controlY;
     [SerializeField] AnimationCurve m_moveCurve;
-    public Vector2 destination => m_destination;
+    public Transform destination => m_destination;
+    public Vector2 destinationAlt => m_destinationAlt;
+    public bool controlX => m_controlX;
+    public bool controlY => m_controlY;
     public AnimationCurve moveCurve => m_moveCurve;
 }

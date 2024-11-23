@@ -19,7 +19,11 @@ public class SceneSwitcher : MonoBehaviour
     }
     public static void SwitchScene(string sceneName, bool tip = false)
     {
-        if (instance == null) instance = Resources.Load<SceneSwitcher>("SceneSwitcher");
+        if (instance == null)
+        {
+            instance = Instantiate(Resources.Load<SceneSwitcher>("SceneSwitcher"));
+            DontDestroyOnLoad(instance);
+        }
         if (instance.switching) return;
         instance.switching = true;
         instance.back.pivot = new Vector2(1.0f, 0.5f);
@@ -42,5 +46,6 @@ public class SceneSwitcher : MonoBehaviour
         tipsAnchor.GetChild(tipIndex).gameObject.SetActive(true);
         while (!InputManager.IsTouchDown()) yield return null;
         tipsAnchor.GetChild(tipIndex).gameObject.SetActive(false);
+        onTap?.Invoke();
     }
 }

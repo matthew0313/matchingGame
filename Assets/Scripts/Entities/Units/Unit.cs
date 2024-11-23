@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
 
-public abstract class Unit : MonoBehaviour, IDamagable
+[RequireComponent(typeof(HpComp))]
+public abstract class Unit : MonoBehaviour
 {
     [Header("Unit")]
     [SerializeField] float m_maxHealth;
@@ -13,6 +14,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
     [SerializeField] protected float damage;
     [SerializeField] protected int hitPriority;
     [SerializeField] protected Animator anim;
+    protected HpComp hp;
 
     
     public float maxHealth => m_maxHealth;
@@ -23,8 +25,8 @@ public abstract class Unit : MonoBehaviour, IDamagable
 
     Pooler<Unit> pool;
     bool instantiated = false;
+    protected Alliance side => hp.side;
 
-    public Alliance side { get; protected set; }
     MoveDirection m_moveDir;
     protected MoveDirection moveDir
     {
@@ -36,11 +38,17 @@ public abstract class Unit : MonoBehaviour, IDamagable
             else if(m_moveDir == MoveDirection.Left) transform.localScale = new Vector2(-1.0f, 1.0f);
         }
     }
-
-    protected virtual void OnEnable()
+    private void Awake()
+    {
+        hp = GetComponent<HpComp>();
+        hp.onDeath += OnDeath;
+    }
+    void Set(Alliance side, MoveDirection direction)
     {
         health = maxHealth;
         dead = false;
+        hp.Set(side);
+        moveDir = direction;
     }
     public virtual Unit Instantiate(Vector2 position, Alliance side, MoveDirection direction)
     {
@@ -49,10 +57,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
         Unit tmp = pool.GetObject(position, Quaternion.identity);
         tmp.instantiated = true;
         tmp.pool = pool;
-        tmp.side = side;
-        tmp.moveDir = direction;
-
-        tmp.pool = pool;
+        tmp.Set(side, direction);
 
         return tmp;
     }
@@ -64,26 +69,10 @@ public abstract class Unit : MonoBehaviour, IDamagable
 
     public Action onHealthChange;
     protected bool dead = false;
-    public void OnDamage(float damage)
-    {
-        if (dead) return;
-        health = Mathf.Max(0, health - damage);
-        onHealthChange?.Invoke();
-        if(health <= 0)
-        {
-            Die();
-        }
-    }
-    void Die()
-    {
-        if (dead) return;
-        dead = true;
-        OnDeath();
-    }
     readonly int deadID = Animator.StringToHash("Dead");
     protected virtual void OnDeath()
     {
-        anim.SetBool(deadID, true);
+        anim.SetTrigger(deadID);
     }
     readonly int movingID = Animator.StringToHash("Moving");
     readonly int attackingID = Animator.StringToHash("Attacking");
@@ -101,20 +90,20 @@ public abstract class Unit : MonoBehaviour, IDamagable
             transform.Translate(transform.right * (moveDir == MoveDirection.Right ? 1 : -1) * moveSpeed * Time.deltaTime);
         }
     }
-    protected IDamagable scanned = null;
+    protected HpComp scanned = null;
     void ScanEnemy()
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, transform.right * (moveDir==MoveDirection.Right ? 1 : -1), scanRange, LayerMask.GetMask("Damagable"));
         scanned = null;
-        List<IDamagable> scannedList = new();
+        List<HpComp> scannedList = new();
         foreach (var i in hit)
         {
-            if (i.transform.TryGetComponent(out IDamagable tmp))
+            if (i.transform.TryGetComponent(out HpComp tmp) && tmp.side != side)
             {
                 scannedList.Add(tmp);
             }
         }
-        scannedList.Sort((a, b) => b.priority.CompareTo(a.priority));
+        scannedList.Sort((a, b) => b.targetPriority.CompareTo(a.targetPriority));
         if (scannedList.Count > 0) scanned = scannedList[0];
     }
 }

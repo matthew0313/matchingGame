@@ -16,11 +16,12 @@ public class TitleUI : MonoBehaviour
     bool canStart = false;
     private void Start()
     {
-        Vector2 prev = logo.anchoredPosition;
-        logoImage.DOColor(new Color(1, 1, 1, 1), 2.0f).OnComplete(() => logoImage.DOColor(new Color(1, 1, 1, 0), 3.0f));
-        logoText.DOColor(new Color(1, 1, 1, 1), 2.0f).OnComplete(() => logoText.DOColor(new Color(1, 1, 1, 0), 3.0f));
-        logo.DOAnchorPos(Vector2.zero, 2.0f).SetEase(Ease.OutElastic).OnComplete(() => {
-            logo.DORewind();
+        float prev = logo.anchoredPosition.y;
+        logoImage.DOColor(new Color(1, 1, 1, 1), 2.0f);
+        logoText.DOColor(new Color(1, 1, 1, 1), 2.0f);
+        logo.DOAnchorPosY(0.0f, 2.0f).SetEase(Ease.OutElastic).OnComplete(() => {
+            logoImage.DOColor(new Color(1, 1, 1, 0), 2.0f);
+            logoText.DOColor(new Color(1, 1, 1, 0), 2.0f);
             opening.DOScaleX(0, 2.0f).SetEase(Ease.OutBounce).OnComplete(() =>
             {
                 startText.rectTransform.DOAnchorPosY(200, 0.5f).OnComplete(() => canStart = true);
@@ -29,6 +30,10 @@ public class TitleUI : MonoBehaviour
     }
     private void Update()
     {
-        if (canStart && InputManager.IsTouchDown()) SceneSwitcher.SwitchScene("Menu");
+        if (canStart && InputManager.IsTouchDown())
+        {
+            if (GlobalManager.Instance.save.introWatched) SceneSwitcher.SwitchScene("Menu");
+            else SceneSwitcher.SwitchScene("Intro");
+        }
     }
 }

@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public Alliance side;
     public float moveSpeed;
-    
     public int direction;
-
     public float damage;
     private void Update()
     {
@@ -16,17 +15,10 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        Unit tmp = collision.transform.GetComponent<Unit>();
-        if (tmp == null)
+        if(collision.transform.TryGetComponent<HpComp>(out HpComp tmp))
         {
-            return;
-        }
-        if (tmp.side == Alliance.Enemy)
-        {
-            tmp.OnDamage(damage);
+            if (tmp.side != side) tmp.GetDamage(damage);
             Destroy(gameObject);
         }
-
     }
 }

@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class RangedUnit : Unit
 {
-    [SerializeField] GameObject bullet;
+    [SerializeField] Bullet bullet;
     public void Attack()
     {
         if(scanned != null)
         {
             var obj = Instantiate(bullet);
             obj.transform.position = transform.position;
-            Debug.Log("ÃÑ¾Ë »ý¼º");
-            Bullet tmp = bullet.GetComponent<Bullet>();
-            tmp.damage = damage;
-            tmp.direction = moveDir == MoveDirection.Right ? 1 : -1;
-           
+            obj.side = side;
+            obj.damage = damage;
+            obj.direction = moveDir == MoveDirection.Right ? 1 : -1;
         }
     }
     protected override void OnDeath()

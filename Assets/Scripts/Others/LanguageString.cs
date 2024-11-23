@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public struct LanguageString
 {
-    [SerializeField][TextArea(1, 2)] string korean, english;
+    [SerializeField][Multiline(2)] string korean, english;
     public string Content(Language language)
     {
         switch (language)
