@@ -12,6 +12,8 @@ public abstract class Unit : MonoBehaviour, IDamagable
     [SerializeField] float m_scanRange;
     [SerializeField] protected float damage;
     [SerializeField] protected Animator anim;
+
+    
     public float maxHealth => m_maxHealth;
     public float health { get; protected set; }
     public float moveSpeed => m_moveSpeed;
@@ -21,7 +23,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
     Pooler<Unit> pool;
     bool instantiated = false;
     public Alliance side { get; private set; }
-    protected MoveDirection moveDir { get; private set; }
+    public MoveDirection moveDir { get; private set; }
     protected virtual void OnEnable()
     {
         health = maxHealth;
@@ -37,6 +39,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
         tmp.side = side;
         tmp.moveDir = direction;
         tmp.pool = pool;
+
         return tmp;
     }
     public void Release()
