@@ -9,11 +9,11 @@ public class RangedUnit : Unit
     {
         if(scanned != null)
         {
-            scanned.OnDamage(damage);
             var obj = Instantiate(bullet);
             obj.transform.position = transform.position;
             Debug.Log("ÃÑ¾Ë »ý¼º");
             Bullet tmp = bullet.GetComponent<Bullet>();
+            tmp.damage = damage;
             tmp.direction = moveDir == MoveDirection.Right ? 1 : -1;
            
         }
