@@ -45,10 +45,12 @@ public abstract class Unit : MonoBehaviour, IKnockable
     public Action onHealthChange;
     protected bool dead = false;
     readonly int deadID = Animator.StringToHash("Dead");
+    readonly int damageID = Animator.StringToHash("Damage");
     public virtual void OnDamage(float damage)
     {
         if (dead) return;
         health = Mathf.Max(health - damage, 0);
+        anim.SetTrigger(damageID);
         if (health <= 0)
         {
             dead = true;
@@ -66,7 +68,6 @@ public abstract class Unit : MonoBehaviour, IKnockable
     }
     protected readonly int movingID = Animator.StringToHash("Moving");
     protected readonly int attackingID = Animator.StringToHash("Attacking");
-    protected readonly int knockbackID = Animator.StringToHash("Knockback");
     float knockbackForce = 0.0f;
     protected virtual void Update()
     {
@@ -79,7 +80,6 @@ public abstract class Unit : MonoBehaviour, IKnockable
             transform.Translate(transform.right * (moveDir == MoveDirection.Right ? 1 : -1) * -1.0f * knockbackForce * Time.deltaTime);
             knockbackForce = Mathf.Max(0, knockbackForce - Time.deltaTime);
         }
-        anim.SetBool(knockbackID, knockbackForce > 0.0f);
         ScanEnemy();
         anim.SetBool(attackingID, scanned != null);
         if (anim.GetBool(movingID) && scanned == null)

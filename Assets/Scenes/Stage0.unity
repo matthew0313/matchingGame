@@ -24194,7 +24194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8315ffe00a85b1045a4d02e88982e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 200
+  m_maxHealth: 500
   m_moveSpeed: 0.5
   m_scanRange: 2.5
   damage: 15
@@ -24205,8 +24205,8 @@ MonoBehaviour:
   spawns:
   - m_startTime: 5
     m_unit: {fileID: 7159500641123464391, guid: bb0fa2a6b6681024693c020fbcdd1e47, type: 3}
-    m_count: 3
-    m_interval: 10
+    m_count: 6
+    m_interval: 5
   spawnPosition: {fileID: 5840506312368190884}
 --- !u!1 &6855610287667267995
 GameObject:
