@@ -26,7 +26,7 @@ public class Haechi : Unit
     protected override void Update()
     {
         base.Update();
-        if (anim.GetBool(beamingID) && scanned != null)
+        if (anim.GetBool(beamingID) && (scanned as MonoBehaviour) != null)
         {
             if(scanned != prev)
             {

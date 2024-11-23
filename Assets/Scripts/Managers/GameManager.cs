@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public GameManager() => Instance = this;
+
+    [SerializeField] int stageIndex = 0;
+    [SerializeField] float timePast = 0.0f;
 
     [Header("Gems")]
     [SerializeField] int m_maxGems = 20;
@@ -60,6 +64,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (!gameInProgress) return;
+        timePast += Time.deltaTime;
         gemGenerationCounter = Mathf.Min(gemGenerationTime, gemGenerationCounter + Time.deltaTime);
         if(gemGenerationCounter >= gemGenerationTime && gems < maxGems)
         {
@@ -86,14 +91,34 @@ public class GameManager : MonoBehaviour
         gameInProgress = false;
         onGameEnd?.Invoke();
     }
+    public Action onGameDefeat;
+    public Action onGameWin;
+    public bool newRecord { get; private set; } = false;
     public void Defeat()
     {;
         EndGame();
-        CutsceneManager.Instance.PlayCutscene(defeatCutscene);
+        CutsceneManager.Instance.PlayCutscene(defeatCutscene, onGameDefeat);
     }
     public void Victory()
     {
         EndGame();
-        CutsceneManager.Instance.PlayCutscene(victoryCutscene);
+        if (GlobalManager.Instance.save.stageRecords.TryGetValue(stageIndex, out float tmp))
+        {
+            if (tmp > timePast)
+            {
+                newRecord = true;
+                GlobalManager.Instance.save.stageRecords[stageIndex] = timePast;
+            }
+        }
+        else GlobalManager.Instance.save.stageRecords.Add(stageIndex, timePast);
+        CutsceneManager.Instance.PlayCutscene(victoryCutscene, onGameWin);
+    }
+    public void Restart()
+    {
+        SceneSwitcher.SwitchScene("Stage" + stageIndex);
+    }
+    public void ReturnToMenu()
+    {
+        SceneSwitcher.SwitchScene("Menu");
     }
 }
