@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileExtension: .json
-  debug: 0
-  debugLanguage: 0
+  debug: 1
+  debugLanguage: 1
 --- !u!4 &435405814
 Transform:
   m_ObjectHideFlags: 0

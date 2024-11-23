@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     [Header("Cutscenes")]
     [SerializeField] Cutscene startCutscene;
     [SerializeField] Cutscene victoryCutscene, defeatCutscene;
+
+    [Header("Audio")]
+    [SerializeField] AudioSource gemEarnAudio;
+    [SerializeField] AudioSource tilePopAudio;
     public PlayerBase playerBase => m_playerBase;
     public Transform rightMapEdge => m_rightMapEdge;
     public int maxGems => m_maxGems;
@@ -45,9 +49,11 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         board.onTilePop += OnTilePop;
+        onGemEarn += gemEarnAudio.Play;
     }
     void OnTilePop()
     {
+        tilePopAudio.Play();
         gemGenerationCounter = Mathf.Min(gemGenerationTime, gemGenerationCounter + gemGenerationTime / tilePopRequired);
         if (gemGenerationCounter >= gemGenerationTime && gems < maxGems)
         {

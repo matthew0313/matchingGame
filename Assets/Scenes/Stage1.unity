@@ -750,14 +750,16 @@ MonoBehaviour:
       m_talk:
         m_elements:
         - m_talker:
-            korean: "\uBC31\uD638\uC758 \uD2B9\uC9D5"
-            english: About Backho
+            korean: "\uC8FC\uC791\uC758 \uD2B9\uC9D5"
+            english: About Suzaku
           m_leftTalkerImage: {fileID: 0}
           m_rightTalkerImage: {fileID: 0}
           m_talkerLocation: 0
           m_dialogue:
-            korean: "\uBC31\uD638\uB294 \uBE60\uB978 \uADFC\uC811 \uD0C0\uC6CC\uC785\uB2C8\uB2E4."
-            english: Backho is a fast melee-ranged tower.
+            korean: "\uC8FC\uC791\uC740 \uC6D0\uAC70\uB9AC \uACF5\uACA9 \uD0C0\uC6CC\uC785\uB2C8\uB2E4.
+              \uBC31\uD638\uC758 \uD6C4\uBC29\uC744 \uC9C0\uC6D0\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+            english: Suzakus are ranged towers, best fit for assisting fire behind
+              backhos.
           m_events: []
         m_defaultLeftTalker: {fileID: 0}
         m_defaultRightTalker: {fileID: 0}
@@ -15621,7 +15623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1848072321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15640,9 +15642,9 @@ RectTransform:
   - {fileID: 763117106}
   m_Father: {fileID: 751968684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 270, y: -90}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848072322
@@ -23932,7 +23934,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.1881628, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -24166,19 +24168,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8315ffe00a85b1045a4d02e88982e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 200
+  m_maxHealth: 300
   m_moveSpeed: 0.5
   m_scanRange: 2.5
-  damage: 15
+  damage: 20
   knockbackResistance: 1
   hitPriority: 0
   anim: {fileID: 758627282931650474}
   m_moveDir: 1
   spawns:
   - m_startTime: 5
+    m_unit: {fileID: 3265393638650003726, guid: 7ad379b27f7571441aa774b000b6e7aa, type: 3}
+    m_count: 3
+    m_interval: 5
+  - m_startTime: 0
     m_unit: {fileID: 7159500641123464391, guid: bb0fa2a6b6681024693c020fbcdd1e47, type: 3}
     m_count: 3
-    m_interval: 20
+    m_interval: 10
   spawnPosition: {fileID: 5840506312368190884}
 --- !u!1 &6855610287667267995
 GameObject:

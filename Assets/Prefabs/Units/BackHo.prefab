@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6643244164274734227}
   - component: {fileID: 2162796623116724175}
   m_Layer: 6
-  m_Name: TestUnit
+  m_Name: BackHo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxHealth: 100
-  m_moveSpeed: 4
+  m_moveSpeed: 2.5
   m_scanRange: 1.5
   damage: 10
   knockbackResistance: 1
