@@ -9,10 +9,14 @@ using UnityEngine.SceneManagement;
 public class SceneSwitcher : MonoBehaviour
 {
     [SerializeField] RectTransform back;
-    [SerializeField] GameObject[] tips;
+    [SerializeField] Transform tipsAnchor;
 
     static SceneSwitcher instance;
     bool switching = false;
+    private void Awake()
+    {
+        for (int i = 0; i < tipsAnchor.childCount; i++) tipsAnchor.GetChild(i).gameObject.SetActive(false);
+    }
     public static void SwitchScene(string sceneName, bool tip = false)
     {
         if (instance == null) instance = Resources.Load<SceneSwitcher>("SceneSwitcher");
@@ -34,9 +38,9 @@ public class SceneSwitcher : MonoBehaviour
     }
     IEnumerator Tipping(Action onTap)
     {
-        int tipIndex = UnityEngine.Random.Range(0, tips.Length);
-        tips[tipIndex].SetActive(true);
+        int tipIndex = UnityEngine.Random.Range(0, tipsAnchor.childCount);
+        tipsAnchor.GetChild(tipIndex).gameObject.SetActive(true);
         while (!InputManager.IsTouchDown()) yield return null;
-        tips[tipIndex].SetActive(false);
+        tipsAnchor.GetChild(tipIndex).gameObject.SetActive(false);
     }
 }
