@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject endScene;
     [SerializeField] RectTransform backBlack;
     [SerializeField] RectTransform victoryText, defeatText;
+    [SerializeField] Image restartButton, returnButton;
     private void Awake()
     {
         GameManager.Instance.onGemCountChange += OnGemCountChange;
@@ -50,7 +51,13 @@ public class UIManager : MonoBehaviour
         endScene.SetActive(true);
         backBlack.DOScaleY(1.0f, 0.5f).SetEase(Ease.InCirc).OnComplete(() =>
         {
-            defeatText.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutElastic);
+            defeatText.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutElastic).OnComplete(() => Wait(1.0f, () =>
+            {
+                restartButton.DOColor(new Color(1, 1, 1, 1), 0.5f);
+                restartButton.rectTransform.DOAnchorPosX(0.0f, 0.5f).SetEase(Ease.OutBounce);
+                returnButton.DOColor(new Color(1, 1, 1, 1), 0.5f);
+                returnButton.rectTransform.DOAnchorPosX(0.0f, 0.5f).SetEase(Ease.OutBounce);
+            }));
         });
     }
     void OnGameWin()
@@ -58,7 +65,13 @@ public class UIManager : MonoBehaviour
         endScene.SetActive(true);
         backBlack.DOScaleY(1.0f, 0.5f).SetEase(Ease.InCirc).OnComplete(() =>
         {
-            victoryText.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutElastic);
+            victoryText.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutElastic).OnComplete(() => Wait(1.0f, () =>
+            {
+                restartButton.DOColor(new Color(1, 1, 1, 1), 0.5f);
+                restartButton.rectTransform.DOAnchorPosX(0.0f, 0.5f).SetEase(Ease.OutBounce);
+                returnButton.DOColor(new Color(1, 1, 1, 1), 0.5f);
+                returnButton.rectTransform.DOAnchorPosX(0.0f, 0.5f).SetEase(Ease.OutBounce);
+            }));
         });
     }
     void Wait(float time, Action afterWait) => StartCoroutine(Waiting(time, afterWait));
