@@ -37,6 +37,7 @@ public class EnemyBoss : Unit
     protected override void OnDeath()
     {
         base.OnDeath();
+        StopAllCoroutines();
         GameManager.Instance.Victory();
     }
     public void Attack()

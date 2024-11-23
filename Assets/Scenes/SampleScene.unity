@@ -13146,7 +13146,7 @@ MonoBehaviour:
   - m_startTime: 5
     m_unit: {fileID: 7159500641123464391, guid: bb0fa2a6b6681024693c020fbcdd1e47, type: 3}
     m_count: 3
-    m_interval: 5
+    m_interval: 20
   spawnPosition: {fileID: 5840506312368190884}
 --- !u!1 &6855610287667267995
 GameObject:

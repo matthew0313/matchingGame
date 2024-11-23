@@ -150,8 +150,10 @@ MonoBehaviour:
   m_moveSpeed: 1
   m_scanRange: 6
   damage: 10
+  knockbackResistance: 1
+  hitPriority: 0
   anim: {fileID: 6643244164274734227}
-  bullet: {fileID: 6567516282995671385, guid: 6a2508911772ce34d9d511e484a395c2, type: 3}
+  bullet: {fileID: 6380461073252050277, guid: 6a2508911772ce34d9d511e484a395c2, type: 3}
 --- !u!1 &3236130913275336302
 GameObject:
   m_ObjectHideFlags: 0

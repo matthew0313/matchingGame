@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class Haechi : Unit
 {
-    [SerializeField] float damageLimit;
+    [SerializeField] Transform beam, beamPoint;
+    [SerializeField] float bonusDamageLimit;
     [SerializeField] float weighIn;
+    [SerializeField] float beamTickRate = 0.5f;
 
     private bool isAttack;
 
@@ -17,22 +19,46 @@ public class Haechi : Unit
         tmpDamage = damage;
         
     }
-    public void Attack()
+    readonly int beamingID = Animator.StringToHash("Beaming");
+    float counter = 0.0f;
+    float bonusDamage = 0.0f;
+    IDamagable prev = null;
+    protected override void Update()
     {
-        if (scanned != null && scanned == tmpScanned)
+        base.Update();
+        if (anim.GetBool(beamingID) && scanned != null)
         {
-            scanned.OnDamage(damage);
-            isAttack = true;
-            if(damage < damageLimit) damage += weighIn;
+            if(scanned != prev)
+            {
+                bonusDamage = 0.0f;
+            }
+            prev = scanned;
 
+            beam.position = beamPoint.position;
+            Vector2 dir = (scanned as MonoBehaviour).transform.position - beamPoint.position;
+            dir.Normalize();
+            beam.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+            beam.localScale = new Vector2(Vector2.Distance(beamPoint.position, (scanned as MonoBehaviour).transform.position), 1.0f + bonusDamage / bonusDamageLimit * 3.0f);
+            beam.gameObject.SetActive(true);
+
+            counter += Time.deltaTime;
+            if(counter >= beamTickRate)
+            {
+                counter = 0.0f;
+                scanned.OnDamage(damage + bonusDamage);
+                bonusDamage += weighIn;
+            }
         }
         else
         {
-            tmpScanned = scanned;
-            damage = tmpDamage;
+            counter = 0.0f;
+            bonusDamage = 0.0f;
+            beam.gameObject.SetActive(false);
         }
-
     }
-
-    
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        Release();
+    }
 }

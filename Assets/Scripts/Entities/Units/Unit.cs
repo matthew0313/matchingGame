@@ -64,6 +64,7 @@ public abstract class Unit : MonoBehaviour, IKnockable
     readonly int deadID = Animator.StringToHash("Dead");
     public void OnDamage(float damage)
     {
+        Debug.Log("Attacked");
         if (dead) return;
         health = Mathf.Max(health - damage, 0);
         if (health <= 0)
@@ -81,9 +82,9 @@ public abstract class Unit : MonoBehaviour, IKnockable
     {
         anim.SetTrigger(deadID);
     }
-    readonly int movingID = Animator.StringToHash("Moving");
-    readonly int attackingID = Animator.StringToHash("Attacking");
-    readonly int knockbackID = Animator.StringToHash("Knockback");
+    protected readonly int movingID = Animator.StringToHash("Moving");
+    protected readonly int attackingID = Animator.StringToHash("Attacking");
+    protected readonly int knockbackID = Animator.StringToHash("Knockback");
     float knockbackForce = 0.0f;
     protected virtual void Update()
     {
