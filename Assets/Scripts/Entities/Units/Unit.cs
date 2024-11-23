@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
 public abstract class Unit : MonoBehaviour, IDamagable
 {
@@ -10,6 +11,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
     [SerializeField] float m_moveSpeed;
     [SerializeField] float m_scanRange;
     [SerializeField] protected float damage;
+    [SerializeField] protected int hitPriority;
     [SerializeField] protected Animator anim;
     public float maxHealth => m_maxHealth;
     public float health { get; protected set; }
@@ -97,18 +99,16 @@ public abstract class Unit : MonoBehaviour, IDamagable
     {
         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, transform.right * (moveDir==MoveDirection.Right ? 1 : -1), scanRange, LayerMask.GetMask("Damagable"));
         scanned = null;
+        List<IDamagable> scannedList = new();
         foreach (var i in hit)
         {
-            UnityEngine.Debug.Log(i.transform.name);
             if (i.transform.TryGetComponent(out IDamagable tmp))
             {
-                if (tmp.side != side)
-                {
-                    scanned = tmp;
-                    break;
-                }
+                scannedList.Add(tmp);
             }
         }
+        scannedList.Sort((a, b) => b.priority.CompareTo(a.priority));
+        if (scannedList.Count > 0) scanned = scannedList[0];
     }
 }
 [System.Serializable]

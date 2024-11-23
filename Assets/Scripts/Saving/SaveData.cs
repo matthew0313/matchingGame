@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    public bool introWatched = false;
     public Settings settings = new();
     public SerializableDicionary<int, StageSaveData> stages = new();
 }

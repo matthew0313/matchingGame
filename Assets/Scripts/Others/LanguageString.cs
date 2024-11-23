@@ -14,6 +14,7 @@ public struct LanguageString
             default: return korean;
         }
     }
+    public string content => Content(GlobalManager.Instance.save.settings.language);
 }
 [System.Serializable]
 public enum Language
