@@ -46,7 +46,7 @@ public class Haechi : Unit
             {
                 counter = 0.0f;
                 scanned.OnDamage(damage + bonusDamage);
-                bonusDamage += weighIn;
+                bonusDamage = Mathf.Min(bonusDamageLimit, bonusDamage + weighIn);
             }
         }
         else
@@ -55,10 +55,5 @@ public class Haechi : Unit
             bonusDamage = 0.0f;
             beam.gameObject.SetActive(false);
         }
-    }
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        Release();
     }
 }

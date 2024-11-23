@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2162796623116724175}
   - component: {fileID: 3265393638650003726}
   m_Layer: 6
-  m_Name: RangedUnit
+  m_Name: Phoenix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ Animator:
   m_GameObject: {fileID: 1293956003985136870}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1dadddbeff37591429448443d25ccb31, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1f25d3fa30fe5d244b24ff6f7f0bf0c8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -8,9 +8,4 @@ public class TestUnit : Unit
     {
         if (scanned != null) scanned.OnDamage(damage);
     }
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        Release();
-    }
 }

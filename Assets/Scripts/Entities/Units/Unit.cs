@@ -19,9 +19,6 @@ public abstract class Unit : MonoBehaviour, IKnockable
     public float scanRange => m_scanRange;
 
     protected virtual bool knockbackImmune => false;
-
-    Pooler<Unit> pool;
-    bool instantiated = false;
     public Alliance side { get; protected set; }
 
     MoveDirection m_moveDir;
@@ -35,36 +32,21 @@ public abstract class Unit : MonoBehaviour, IKnockable
             else if(m_moveDir == MoveDirection.Left) transform.localScale = new Vector2(-1.0f, 1.0f);
         }
     }
-    protected void Set(Alliance side, MoveDirection direction)
+    protected virtual void Awake()
     {
         health = maxHealth;
-        dead = false;
+    }
+    public void Set(Alliance side, MoveDirection direction)
+    {
         this.side = side;
         moveDir = direction;
-    }
-    public virtual Unit Instantiate(Vector2 position, Alliance side, MoveDirection direction)
-    {
-        if (instantiated) return null;
-        if (pool == null) pool = new Pooler<Unit>(this);
-        Unit tmp = pool.GetObject(position, Quaternion.identity);
-        tmp.instantiated = true;
-        tmp.pool = pool;
-        tmp.Set(side, direction);
-
-        return tmp;
-    }
-    public virtual void Release()
-    {
-        if (!instantiated) return;
-        pool.ReleaseObject(this);
     }
 
     public Action onHealthChange;
     protected bool dead = false;
     readonly int deadID = Animator.StringToHash("Dead");
-    public void OnDamage(float damage)
+    public virtual void OnDamage(float damage)
     {
-        Debug.Log("Attacked");
         if (dead) return;
         health = Mathf.Max(health - damage, 0);
         if (health <= 0)
@@ -90,7 +72,6 @@ public abstract class Unit : MonoBehaviour, IKnockable
     {
         if (dead || !GameManager.Instance.gameInProgress)
         {
-            Debug.Log("returned");
             return;
         }
         if(knockbackForce > 0.0f)
@@ -101,7 +82,7 @@ public abstract class Unit : MonoBehaviour, IKnockable
         anim.SetBool(knockbackID, knockbackForce > 0.0f);
         ScanEnemy();
         anim.SetBool(attackingID, scanned != null);
-        if (anim.GetBool(movingID))
+        if (anim.GetBool(movingID) && scanned == null)
         {
             transform.Translate(transform.right * (moveDir == MoveDirection.Right ? 1 : -1) * moveSpeed * Time.deltaTime);
         }
@@ -122,7 +103,7 @@ public abstract class Unit : MonoBehaviour, IKnockable
         scannedList.Sort((a, b) => b.priority.CompareTo(a.priority));
         if (scannedList.Count > 0) scanned = scannedList[0];
     }
-
+    public void DestroySelf() => Destroy(gameObject);
 }
 [System.Serializable]
 public enum MoveDirection
