@@ -109,7 +109,7 @@ public abstract class Unit : MonoBehaviour, IDamagable
         List<IDamagable> scannedList = new();
         foreach (var i in hit)
         {
-            if (i.transform.TryGetComponent(out IDamagable tmp))
+            if (i.transform.TryGetComponent(out IDamagable tmp) && tmp.side != side)
             {
                 scannedList.Add(tmp);
             }
