@@ -153,7 +153,7 @@ MonoBehaviour:
   knockbackResistance: 1
   hitPriority: 0
   anim: {fileID: 6643244164274734227}
-  knockback: 5
+  knockback: 3
 --- !u!1 &4929505257372032226
 GameObject:
   m_ObjectHideFlags: 0

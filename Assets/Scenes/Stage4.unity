@@ -24220,12 +24220,12 @@ MonoBehaviour:
     m_interval: 3
   - m_startTime: 7
     m_unit: {fileID: 8537377333871199583, guid: 61cfa39608e91fe4da816260a2896f80, type: 3}
-    m_count: 2
-    m_interval: 3
+    m_count: 1
+    m_interval: 0
   - m_startTime: 10
     m_unit: {fileID: -4494836878001325790, guid: 4ad3098a35e657646b96787951d5062c, type: 3}
-    m_count: 2
-    m_interval: 15
+    m_count: 1
+    m_interval: 0
   spawnPosition: {fileID: 5840506312368190884}
 --- !u!1 &6855610287667267995
 GameObject:
